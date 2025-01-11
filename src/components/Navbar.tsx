@@ -11,10 +11,15 @@ import {
   IconButton,
   Typography,
   useMediaQuery,
+  Container,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchBar from "./SearchBar";
 import { useAuth } from "../context/AuthContext";
+import StarIcon from "@mui/icons-material/Star";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Navbar = () => {
   const auth = useAuth();
@@ -46,54 +51,108 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="sticky">
-      <Toolbar>
-        <Typography
-          variant="h6"
-          sx={{
-            cursor: "pointer",
-            flexGrow: 0,
-            mr: 4,
-          }}
-          onClick={() => navigate("/")}
-        >
-          R-flix
-        </Typography>
-        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-          <SearchBar />
-        </Box>
+    <AppBar
+      position="sticky"
+      elevation={0}
+      sx={{
+        backgroundColor: "background.paper",
+        borderBottom: "1px solid",
+        borderColor: "divider",
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar sx={{ px: { xs: 1, sm: 2 } }}>
+          <Typography
+            variant="h6"
+            sx={{
+              cursor: "pointer",
+              fontWeight: 700,
+              color: "primary.main",
+              fontSize: "1.5rem",
+              mr: 4,
+            }}
+            onClick={() => navigate("/")}
+          >
+            R-flix
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+            <SearchBar />
+          </Box>
 
-        {isMobile ? (
-          <>
-            <IconButton color="inherit" edge="end" onClick={handleMenuOpen}>
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={() => handleNavigate("/ratings")}>
+          {isMobile ? (
+            <>
+              <IconButton
+                onClick={handleMenuOpen}
+                sx={{
+                  color: "text.primary",
+                  ml: 2,
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 0, 0, 0.04)",
+                  },
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                sx={{
+                  "& .MuiPaper-root": {
+                    borderRadius: 2,
+                    minWidth: 180,
+                    boxShadow:
+                      "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+                  },
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ratings");
+                    handleMenuClose();
+                  }}
+                  sx={{ py: 1.5 }}
+                >
+                  <ListItemIcon>
+                    <StarIcon sx={{ color: "primary.main" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="My Ratings" />
+                </MenuItem>
+                <MenuItem onClick={handleSignOut} sx={{ py: 1.5 }}>
+                  <ListItemIcon>
+                    <LogoutIcon sx={{ color: "primary.main" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Sign Out" />
+                </MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Button
+                color="inherit"
+                onClick={() => navigate("/ratings")}
+                sx={{
+                  mr: 2,
+                  color: "text.primary",
+                  fontWeight: 600,
+                }}
+              >
                 My Ratings
-              </MenuItem>
-              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-            </Menu>
-          </>
-        ) : (
-          <>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/ratings")}
-              sx={{ mr: 2 }}
-            >
-              My Ratings
-            </Button>
-            <Button color="inherit" onClick={handleSignOut}>
-              Sign Out
-            </Button>
-          </>
-        )}
-      </Toolbar>
+              </Button>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={handleSignOut}
+                sx={{
+                  fontWeight: 600,
+                }}
+              >
+                Sign Out
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };

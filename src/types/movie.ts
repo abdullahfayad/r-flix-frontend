@@ -45,6 +45,7 @@ export interface Review {
 }
 
 export interface MovieDetails extends Movie {
+  backdrop_path: string;
   credits: {
     cast: Cast[];
     crew: Crew[];

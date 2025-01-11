@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
 import { theme } from "./theme";
@@ -63,7 +63,7 @@ const AppContent = () => {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Box sx={{ minHeight: "100vh" }}>
         {auth?.isAuthenticated && <Navbar />}
         <Routes>
@@ -112,7 +112,7 @@ const AppContent = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Box>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

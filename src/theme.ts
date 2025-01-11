@@ -12,10 +12,10 @@ declare module "@mui/material/styles" {
   }
   interface PaletteOptions {
     searchBar: {
+      text: string;
       background: string;
       hoverBackground: string;
       placeholder: string;
-      text: string;
       dropdownBackground: string;
     };
   }
@@ -25,20 +25,67 @@ export const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#1976d2",
+      main: "#2563eb",
+      light: "#60a5fa",
+      dark: "#1e40af",
     },
     background: {
-      default: "#f5f5f5",
+      default: "#f8fafc",
+      paper: "#ffffff",
     },
     searchBar: {
-      background: "rgba(255, 255, 255, 0.12)",
-      hoverBackground: "rgba(255, 255, 255, 0.18)",
-      placeholder: "rgba(255, 255, 255, 0.7)",
       text: "#ffffff",
-      dropdownBackground: "rgba(255, 255, 255, 0.95)",
+      background: "rgba(37, 99, 235, 0.9)",
+      hoverBackground: "rgba(37, 99, 235, 1)",
+      placeholder: "rgba(255, 255, 255, 0.8)",
+      dropdownBackground: "#ffffff",
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h4: {
+      fontWeight: 700,
+    },
+    h5: {
+      fontWeight: 600,
+    },
+    h6: {
+      fontWeight: 600,
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          borderRadius: "8px",
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: "16px",
+          boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+          transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+          "&:hover": {
+            transform: "translateY(-4px)",
+            boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+          },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+          fontWeight: 500,
+        },
+      },
+    },
   },
 });

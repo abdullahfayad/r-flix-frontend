@@ -63,10 +63,9 @@ const MovieCard = ({ movie, genres }: MovieCardProps) => {
           display: "flex",
           cursor: "pointer",
           flexDirection: "column",
-          transition: "transform 0.2s ease-in-out",
-          "&:hover": {
-            transform: "scale(1.02)",
-          },
+          backgroundColor: "background.paper",
+          position: "relative",
+          overflow: "hidden",
         }}
         onClick={() => navigate(`/movie/${movie.id}`)}
       >
@@ -79,33 +78,71 @@ const MovieCard = ({ movie, genres }: MovieCardProps) => {
           alt={movie.title}
           onLoad={() => setImageLoaded(true)}
           image={`${IMAGE_BASE_URL}${movie.poster_path}`}
-          sx={{ display: imageLoaded ? "block" : "none" }}
+          sx={{
+            display: imageLoaded ? "block" : "none",
+          }}
         />
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h6" component="div" noWrap>
+        <CardContent sx={{ flexGrow: 1, p: 2.5 }}>
+          <Typography 
+            gutterBottom 
+            variant="h6" 
+            component="div" 
+            noWrap
+            sx={{ 
+              fontWeight: 600,
+              fontSize: "1.1rem",
+              mb: 1.5 
+            }}
+          >
             {movie.title} {releaseYear && `(${releaseYear})`}
           </Typography>
-          <Box sx={{ mb: 1 }}>
+          <Box sx={{ mb: 2 }}>
             {movieGenres.map((genre) => (
               <Chip
                 size="small"
                 key={genre.id}
                 label={genre.name}
-                sx={{ mr: 0.5, mb: 0.5 }}
+                sx={{
+                  mr: 0.5,
+                  mb: 0.5,
+                  backgroundColor: "primary.light",
+                  color: "white",
+                  fontSize: "0.75rem",
+                }}
               />
             ))}
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box onClick={handleRatingClick} sx={{ p: 1 }}>
+          <Box 
+            sx={{ 
+              display: "flex", 
+              alignItems: "center", 
+              gap: 1,
+              mt: "auto" 
+            }}
+          >
+            <Box 
+              onClick={handleRatingClick} 
+              sx={{ 
+                p: 1,
+                borderRadius: 1,
+                transition: "background-color 0.2s",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                }
+              }}
+            >
               <Rating
                 value={movie.vote_average / 2}
-                precision={1}
-                max={5}
+                precision={0.5}
                 size="small"
                 readOnly
               />
             </Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography 
+              variant="body2" 
+              color="text.secondary"
+              sx={{ fontSize: "0.875rem" }}
+            >
               {userRating ? "Your rating" : "Global rating"}
             </Typography>
           </Box>
